@@ -15,14 +15,14 @@ public class Test extends JFrame{
     public Test(){
 // 窗体的相关属性的定义
         super("JTable数据绑定示例");
-        this.setSize(330,400);
+        this.setSize(500,500);
         this.setLayout(null);
-        this.setLocation(100,50);
+        this.setLocation(10,50);
 // 创建组件
         this.scpDemo = new JScrollPane();
-        this.scpDemo.setBounds(10,50,300,270);
+        this.scpDemo.setBounds(20,60,450,300);
         this.btnShow = new JButton("显示数据");
-        this.btnShow.setBounds(10,10,300,30);
+        this.btnShow.setBounds(50,10,300,40);
 // 给按钮注册监听
         this.btnShow.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae){
@@ -41,10 +41,9 @@ public class Test extends JFrame{
         try{
 // 获得连接
             Class.forName("com.mysql.jdbc.Driver");
-
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/softwork?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC","root","123456");
 // 建立查询条件
-            String sql = "select * from bookinfo";
+            String sql = "select * from booksinfo";
             Statement pstm = conn.createStatement();
 // 执行查询
             ResultSet rs =pstm.executeQuery(sql);
@@ -59,13 +58,13 @@ public class Test extends JFrame{
             count = 0;
             while(rs.next()){
                 info[count][0] = rs.getString("bookname");
-                info[count][0] = rs.getString("auth");
+                info[count][1] = rs.getString("editor");
                 info[count][2] = rs.getDouble("price");
                 //info[count][3] = rs.getString("sex");
                 count++;
             }//
 // 定义表头
-            String[] title = {"书名","作者","价格"};
+            String[] title = {"书名","出版社","价格"};
 // 创建JTable
             this.tabDemo = new JTable(info,title);
 // 显示表头
